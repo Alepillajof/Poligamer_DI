@@ -1,0 +1,75 @@
+.faq-section {
+  padding: 5rem 3rem;
+  background-color: var(--bg); /* Asegúrate de que esto sea tu #0a0a0a */
+  color: white;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.faq-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
+}
+
+.faq-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.faq-item {
+  background: var(--bg2); /* #111111 */
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el mouse por la pregunta */
+.faq-item:hover {
+  border-color: var(--red);
+  box-shadow: 0 0 10px rgba(225, 29, 72, 0.2);
+}
+
+.faq-question {
+  width: 100%;
+  padding: 1.5rem;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.faq-question:hover {
+  color: var(--red);
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  color: var(--red);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
+  padding: 0 1.5rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Clase que se activa con el estado del componente */
+.faq-item.active .faq-answer {
+  max-height: 200px; /* Suficiente espacio para el texto */
+  padding-bottom: 1.5rem;
+  transition: max-height 0.4s ease-in-out;
+}
