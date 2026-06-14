@@ -1,0 +1,50 @@
+    @import './index.css';
+
+    .btn-primary {
+    background: linear-gradient(135deg, #e11d48, #f97316);
+    color: white;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-outline {
+    background: transparent;
+    color: #fff5f5;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid rgba(225, 29, 72, 0.25);
+    transition: all 0.3s;
+    display: inline-block;
+    }
+    .btn-outline:hover { border-color: #fb7185; color: #fb7185; }
+
+    .section-tag {
+    font-size: 0.75rem;
+    color: #fb7185;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    }
+    .section-title {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff5f5;
+    }
+    .section-title span { color: #fb7185; }
+    .section-header { margin-bottom: 2.5rem; }

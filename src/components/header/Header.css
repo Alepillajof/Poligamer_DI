@@ -1,0 +1,81 @@
+    .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 5%;
+    background-color: #0b0c10; /* Fondo oscuro gamer */
+    border-bottom: 2px solid #1f2833;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(111, 66, 193, 0.15); /* Brillo sutil morado */
+    }
+
+    .header-logo h2 {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    }
+
+    .header-logo h2 span {
+    color: #6f42c1; /* Morado gaming */
+    text-shadow: 0 0 10px #6f42c1;
+    }
+
+    .header-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    }
+
+    .header-nav a {
+    color: #c5c6c7;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    }
+
+    .header-nav a:hover, 
+    .header-nav a.active {
+    color: #00f2fe; /* Ciano brillante */
+    text-shadow: 0 0 8px #00f2fe;
+    }
+
+    .header-auth {
+    display: flex;
+    gap: 1rem;
+    }
+
+    .header-auth button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    }
+
+    .btn-login {
+    background: transparent;
+    color: #00f2fe;
+    border: 2px solid #00f2fe;
+    }
+
+    .btn-login:hover {
+    background: rgba(0, 242, 254, 0.1);
+    transform: translateY(-2px);
+    }
+
+    .btn-register {
+    background: linear-gradient(45deg, #6f42c1, #a020f0);
+    color: #fff;
+    border: none;
+    box-shadow: 0 0 10px rgba(111, 66, 193, 0.5);
+    }
+
+    .btn-register:hover {
+    background: linear-gradient(45deg, #a020f0, #6f42c1);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(111, 66, 193, 0.8);
+    }

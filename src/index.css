@@ -1,0 +1,30 @@
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    :root {
+    --red: #e11d48;
+    --red-light: #fb7185;
+    --orange: #f97316;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #1a1010;
+    --text: #fff5f5;
+    --text-muted: #9ca3af;
+    --border: rgba(225, 29, 72, 0.25);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+    font-family: 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
