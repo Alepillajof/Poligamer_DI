@@ -1,81 +1,206 @@
-    .header {
+/* ==========================================================================
+   1. ESTILOS BASE - ESCRITORIO
+   ========================================================================== */
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.2rem 5%;
-    background-color: #0b0c10; /* Fondo oscuro gamer */
-    border-bottom: 2px solid #1f2833;
+    padding: 0.9rem 5%;
+    background: #07080a;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(111, 66, 193, 0.15); /* Brillo sutil morado */
-    }
+    border-bottom: 2px solid #1f2833;
+    box-shadow: 0 4px 25px rgba(111, 66, 193, 0.12);
+}
 
-    .header-logo h2 {
+.header-logo h2 {
     color: #fff;
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    }
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+}
 
-    .header-logo h2 span {
-    color: #6f42c1; /* Morado gaming */
-    text-shadow: 0 0 10px #6f42c1;
-    }
+.header-logo h2 span {
+    color: #6f42c1;
+    text-shadow: 0 0 12px rgba(111, 66, 193, 0.8);
+}
 
-    .header-nav ul {
+.header-nav ul {
     display: flex;
     list-style: none;
-    gap: 2rem;
-    }
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
 
-    .header-nav a {
-    color: #c5c6c7;
+.header-nav a {
+    color: #95979a;
     text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    }
-
-    .header-nav a:hover, 
-    .header-nav a.active {
-    color: #00f2fe; /* Ciano brillante */
-    text-shadow: 0 0 8px #00f2fe;
-    }
-
-    .header-auth {
-    display: flex;
-    gap: 1rem;
-    }
-
-    .header-auth button {
-    padding: 0.6rem 1.2rem;
-    border-radius: 5px;
     font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
-    }
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.2s ease;
+}
 
-    .btn-login {
+.header-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #00f2fe;
+    box-shadow: 0 0 8px #00f2fe;
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.header-nav a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+.header-nav a:hover {
+    color: #fff;
+}
+
+.header-auth {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.header-auth button {
+    padding: 0.6rem 1.4rem;
+    border-radius: 0px; 
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-login {
     background: transparent;
     color: #00f2fe;
     border: 2px solid #00f2fe;
-    }
+}
 
-    .btn-login:hover {
-    background: rgba(0, 242, 254, 0.1);
+.btn-login:hover {
+    background: rgba(0, 242, 254, 0.12);
     transform: translateY(-2px);
-    }
+}
 
-    .btn-register {
-    background: linear-gradient(45deg, #6f42c1, #a020f0);
+.btn-register {
+    background: linear-gradient(135deg, #6f42c1 0%, #3a1c71 100%);
     color: #fff;
     border: none;
-    box-shadow: 0 0 10px rgba(111, 66, 193, 0.5);
+}
+
+.btn-register:hover {
+    background: linear-gradient(135deg, #8a51eb 0%, #502999 100%);
+    transform: translateY(-2px);
+}
+
+.header-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 16px;
+    cursor: pointer;
+    z-index: 1020;
+}
+
+.header-hamburger span {
+    width: 100%;
+    height: 2.5px;
+    background-color: #00f2fe;
+    transition: all 0.3s ease;
+}
+
+
+/* ==========================================================================
+   2. ADAPTACIÓN RESPONSIVA (MENÚ CORTINA INTELIGENTE)
+   ========================================================================== */
+@media (max-width: 968px) {
+    .header-hamburger {
+        display: flex;
     }
 
-    .btn-register:hover {
-    background: linear-gradient(45deg, #a020f0, #6f42c1);
-    transform: translateY(-2px);
-    box-shadow: 0 0 15px rgba(111, 66, 193, 0.8);
+    .header-hamburger.open span:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
     }
+    .header-hamburger.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .header-hamburger.open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Oculto por defecto en móviles */
+    .header-nav, 
+    .header-auth {
+        display: none;
+    }
+
+    /* El panel de navegación cae como una persiana compacta justo abajo del header */
+    .header-nav.active {
+        display: flex;
+        position: absolute;
+        top: 100%; /* Inicia exactamente donde termina el header */
+        left: 0;
+        width: 100%;
+        background: rgba(7, 8, 10, 0.98);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(0, 242, 254, 0.1);
+        padding: 2rem 0;
+        z-index: 1009;
+        justify-content: center;
+    }
+
+    .header-nav.active ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        width: 100%;
+    }
+
+    .header-nav.active a {
+        font-size: 1.1rem;
+    }
+
+    /* Los botones de autenticación se acoplan directamente abajo de los enlaces */
+    .header-nav.active ~ .header-auth.active {
+        display: flex;
+        position: absolute;
+        top: calc(100% + 14rem); /* Posicionado perfectamente abajo del menú */
+        left: 0;
+        width: 100%;
+        background: rgba(7, 8, 10, 0.98);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        padding: 0 0 2rem 0;
+        gap: 1rem;
+        z-index: 1009;
+        border-bottom: 2px solid rgba(111, 66, 193, 0.3);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .header-auth.active a {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .header-auth.active button {
+        width: 100%;
+        padding: 0.75rem;
+    }
+}

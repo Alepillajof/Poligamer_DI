@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './FAQ.css';
+import video3 from '../../assets/video3.mp4'; 
 
 const faqs = [
   { 
@@ -10,9 +11,9 @@ const faqs = [
     question: "¿Necesito crear una cuenta para jugar?", 
     answer: "Para acceder a todas las funciones, guardar tu progreso y participar en eventos, te recomendamos crear una cuenta gratuita." 
   },
-  { 
+  {  
     question: "¿Qué tipo de juegos encontraré?", 
-    answer: "Contamos con una amplia variedad de géneros, desde acción y aventura hasta juegos de estrategia y competitivos." 
+    answer: "Contamos con una amplia variedad de géneros, desde acción y aventura hasta juegos de estrategia y competivos." 
   },
   { 
     question: "¿Puedo jugar desde celular?", 
@@ -45,22 +46,57 @@ export const FAQ = () => {
 
   return (
     <section className="faq-section" id="faq">
-      <h2 className="faq-title">Preguntas Frecuentes</h2>
-      <div className="faq-container">
-        {faqs.map((item, index) => (
-          <div 
-            key={index} 
-            className={`faq-item ${activeIndex === index ? 'active' : ''}`}
-          >
-            <button className="faq-question" onClick={() => toggleFAQ(index)}>
-              {item.question}
-              <span className="faq-icon">{activeIndex === index ? '−' : '+'}</span>
-            </button>
-            <div className="faq-answer">
-              <p>{item.answer}</p>
-            </div>
+      <div className="faq-grid">
+        
+        {/* Columna Izquierda: Entrada suave lateral para el Frame del Video */}
+        <div className="faq-media-wrapper" data-aos="fade-right">
+          <div className="faq-video-frame-cyber">
+            <div className="faq-video-glow"></div>
+            <div className="faq-corner-tag">INFO CORE</div>
+            <video 
+              src={video3}
+              autoPlay 
+              muted 
+              loop 
+              playsInline
+              className="faq-video"
+            />
           </div>
-        ))}
+        </div>
+
+        {/* Columna Derecha: Acordeón de Preguntas Frecuentes */}
+        <div className="faq-content">
+          {/* Cabeceras animadas con enfoque zoom-out */}
+          <span className="faq-tag" data-aos="zoom-out" data-aos-delay="100">
+            Soporte y Comunidad
+          </span>
+          <h2 className="faq-title" data-aos="zoom-out" data-aos-delay="200">
+            Preguntas Frecuentes
+          </h2>
+          
+          <div className="faq-container">
+            {faqs.map((item, index) => (
+              <div 
+                key={index} 
+                className={`faq-item ${activeIndex === index ? 'active' : ''}`}
+                // Multiplica el index por 50 para que aparezcan en cascada impecable (50ms, 100ms, 150ms...)
+                data-aos="fade-up"
+                data-aos-delay={index * 50}
+              >
+                <button className="faq-question" onClick={() => toggleFAQ(index)}>
+                  {item.question}
+                  <span className="faq-icon">{activeIndex === index ? '−' : '+'}</span>
+                </button>
+                <div className="faq-answer">
+                  <div className="faq-answer-inner">
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

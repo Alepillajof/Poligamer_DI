@@ -1,70 +1,266 @@
-.downloads-container {
-  padding: 5rem 2rem;
-  background: linear-gradient(135deg, #130b1f 0%, #0b0b13 100%);
-  color: white;
-  text-align: center;
-  border-top: 1px solid #2a2a4a;
-}
+    /* ==========================================================================
+    1. CONTEXTO GENERAL Y FONDO PREMIUM
+    ========================================================================== */
+    .downloads-container {
+    padding: 6rem 6%;
+    background: radial-gradient(circle at 20% 50%, #0c0e14 0%, #050608 100%);
+    color: white;
+    border-top: 2px solid #1f2833;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    }
 
-.downloads-content {
-  max-width: 900px;
-  margin: 0 auto;
-}
+    /* Decoración de fondo de cuadrícula cibernética sutil */
+    .downloads-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(27, 38, 59, 0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(27, 38, 59, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none;
+    }
 
-.downloads-title {
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  color: #bf00ff;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
+    .downloads-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1300px;
+    width: 100%;
+    gap: 5rem;
+    z-index: 2;
+    }
 
-.download-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
+    /* ==========================================================================
+    2. TEXTOS TIERRADOS Y LLAMATIVOS
+    ========================================================================== */
+    .downloads-content {
+    flex: 1;
+    max-width: 580px;
+    text-align: left;
+    }
 
-.btn-download {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  background: #1a1a2e;
-  border: 1px solid #3d3d6b;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  text-decoration: none;
-  color: white;
-  transition: all 0.3s ease;
-  min-width: 220px;
-}
+    .downloads-tag {
+    color: #00f2fe;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    display: block;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+    }
 
-.btn-download:hover {
-  background: #2a2a4a;
-  transform: scale(1.05);
-  box-shadow: 0 8px 15px rgba(191, 0, 255, 0.2);
-  border-color: #bf00ff;
-}
+    .downloads-title {
+    font-size: 3.5rem;
+    margin-bottom: 1.2rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(180deg, #ffffff 40%, #a5a6a7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
 
-.btn-icon {
-  font-size: 2.2rem;
-}
+    .downloads-subtitle {
+    color: #8c8e93;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    }
 
-.btn-text {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
+    /* ==========================================================================
+    3. BOTONES DE DESCARGA FUTURISTAS (BORDES AFILADOS)
+    ========================================================================== */
+    .download-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 360px;
+    }
 
-.btn-text span {
-  font-size: 0.75rem;
-  color: #a0a0b8;
-}
+    .btn-download {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: rgba(15, 17, 21, 0.75);
+    border: 1px solid rgba(31, 40, 51, 0.8);
+    padding: 1.1rem 1.8rem;
+    border-radius: 0px; /* Bordes estrictamente afilados */
+    text-decoration: none;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(5px);
+    }
 
-.btn-text strong {
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-}
+    /* Líneas de escaneo retro-futuristas dentro del botón */
+    .btn-scanline {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 4px, 6px 100%;
+    opacity: 0.4;
+    pointer-events: none;
+    }
+
+    /* Resplandor interno al pasar el cursor */
+    .btn-border-glow {
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transition: 0.5s;
+    }
+
+    .btn-download:hover .btn-border-glow {
+    left: 100%;
+    }
+
+    /* Comportamiento Hover Personalizado */
+    .btn-windows:hover {
+    background: rgba(0, 242, 254, 0.04);
+    border-color: #00f2fe;
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.2), inset 0 0 10px rgba(0, 242, 254, 0.1);
+    transform: translateX(8px);
+    }
+    .btn-windows .btn-icon { color: #00f2fe; filter: drop-shadow(0 0 8px rgba(0,242,254,0.6)); }
+
+    .btn-android:hover {
+    background: rgba(164, 198, 57, 0.04);
+    border-color: #a4c639;
+    box-shadow: 0 0 25px rgba(164, 198, 57, 0.2), inset 0 0 10px rgba(164, 198, 57, 0.1);
+    transform: translateX(8px);
+    }
+    .btn-android .btn-icon { color: #a4c639; filter: drop-shadow(0 0 8px rgba(164,198,57,0.6)); }
+
+    .btn-apple:hover {
+    background: rgba(111, 66, 193, 0.04);
+    border-color: #bf00ff;
+    box-shadow: 0 0 25px rgba(191, 0, 255, 0.25), inset 0 0 10px rgba(191, 0, 255, 0.15);
+    transform: translateX(8px);
+    }
+    .btn-apple .btn-icon { color: #bf00ff; filter: drop-shadow(0 0 8px rgba(191,0,255,0.6)); }
+
+    .btn-icon {
+    font-size: 2.3rem;
+    transition: transform 0.3s ease;
+    }
+
+    .btn-text span {
+    font-size: 0.75rem;
+    color: #6c6e73;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    }
+
+    .btn-text strong {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    }
+
+    /* ==========================================================================
+    4. CONTENEDOR DE VIDEO MEJORADO (MARCO HUD GAMER)
+    ========================================================================== */
+    .downloads-media-wrapper {
+    flex: 1.1;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+    }
+
+    .video-frame-cyber {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 2px solid #1f2833;
+    position: relative;
+    background: #000;
+    }
+
+    /* Marco neón externo */
+    .video-frame-cyber::before {
+    content: '';
+    position: absolute;
+    top: -5px; left: -5px; right: -5px; bottom: -5px;
+    border: 1px solid rgba(111, 66, 193, 0.3);
+    pointer-events: none;
+    }
+
+    /* Pequeño tag de esquina estética HUD */
+    .corner-tag {
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    background: #6f42c1;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 2px 8px;
+    letter-spacing: 1px;
+    z-index: 3;
+    }
+
+    /* Aura de luz trasera de fondo */
+    .video-glow-effect {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    box-shadow: 0 0 40px rgba(111, 66, 193, 0.25);
+    z-index: -1;
+    animation: pulseGlow 4s infinite alternate;
+    }
+
+    .downloads-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 1px solid rgba(0, 242, 254, 0.15);
+    }
+
+    @keyframes pulseGlow {
+    0% { opacity: 0.6; transform: scale(0.99); }
+    100% { opacity: 1; transform: scale(1.01); }
+    }
+
+    /* ==========================================================================
+        5. ADAPTACIÓN RESPONSIVA
+    ========================================================================== */
+    @media (max-width: 968px) {
+    .downloads-container {
+        padding: 5rem 5%;
+    }
+
+    .downloads-grid {
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .downloads-content {
+        text-align: center;
+        max-width: 100%;
+    }
+
+    .downloads-title {
+        font-size: 2.6rem;
+    }
+
+    .download-buttons {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .btn-download:hover {
+        transform: translateY(-4px); /* Desplazamiento hacia arriba ideal para pantallas táctiles */
+    }
+
+    .downloads-media-wrapper {
+        width: 100%;
+    }
+    }

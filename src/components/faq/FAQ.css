@@ -1,40 +1,149 @@
+/* ==========================================================================
+   1. ESTRUCTURA DE DOS COLUMNAS - ALINEACIÓN VERTICAL CENTRADA
+   ========================================================================== */
 .faq-section {
-  padding: 5rem 3rem;
-  background-color: var(--bg);
+  padding: 6rem 6%;
+  background: radial-gradient(circle at 30% 50%, #0c0e14 0%, #050608 100%);
   color: white;
-  max-width: 900px;
-  margin: 0 auto;
+  border-top: 2px solid #1f2833;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.faq-title {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
+.faq-grid {
+  display: flex;
+  flex-direction: row;     /* Forzamos las dos columnas en escritorio */
+  align-items: center;     /* ¡Clave! Centra el video verticalmente con las preguntas */
+  justify-content: space-between;
+  max-width: 1400px;       /* Un poco más ancho para albergar el video gigante */
+  width: 100%;
+  gap: 4rem;               /* Espacio de separación entre columnas */
+  z-index: 2;
+}
+
+/* ==========================================================================
+   2. COLUMNA IZQUIERDA - EL VIDEO DEL ROBOT (GRANDE)
+   ========================================================================== */
+.faq-media-wrapper {
+  flex: 1.1;               /* Aumentamos la proporción para que sea grande */
+  width: 100%;
+  max-width: 650px;        /* ¡Tamaño ampliado para que impacte! */
+  display: flex;
+  justify-content: center;
+}
+
+.faq-video-frame-cyber {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 2px solid #1f2833;
+  position: relative;
+  background: #000;
+  box-shadow: 0 0 35px rgba(0, 242, 254, 0.1);
+}
+
+/* Detalles decorativos estilo HUD Gamer */
+.faq-video-frame-cyber::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: -6px; right: -6px; bottom: -6px;
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  pointer-events: none;
+}
+
+.faq-corner-tag {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  background: #00f2fe;
+  color: #0b0c10;
+  font-size: 0.65rem;
+  font-weight: 900;
+  padding: 2px 10px;
+  letter-spacing: 1px;
+  z-index: 3;
+}
+
+.faq-video-glow {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
+  z-index: -1;
+}
+
+.faq-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: 1px solid rgba(111, 66, 193, 0.15);
+}
+
+/* ==========================================================================
+   3. COLUMNA DERECHA - PREGUNTAS FRECUENTES
+   ========================================================================== */
+.faq-content {
+  flex: 1.2;               /* Proporción equilibrada para el texto */
+  width: 100%;
+  max-width: 680px;
+  text-align: left;        /* Textos alineados a la izquierda */
+}
+
+.faq-tag {
+  color: #6f42c1;
+  font-size: 0.8rem;
+  font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 3px;
+  display: block;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 10px rgba(111, 66, 193, 0.4);
+}
+
+.faq-title { 
+  font-size: 3.2rem;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 900;
+  background: linear-gradient(180deg, #ffffff 40%, #a5a6a7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .faq-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 1rem;
+  width: 100%;
 }
 
+/* Items del Acordeón con bordes afilados */
 .faq-item {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  background: rgba(15, 17, 21, 0.65);
+  border: 1px solid rgba(31, 40, 51, 0.7);
+  border-radius: 0px; /* Bordes estrictamente rectos */
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  backdrop-filter: blur(5px);
 }
 
 .faq-item:hover {
-  border-color: var(--red);
-  box-shadow: 0 0 10px rgba(225, 29, 72, 0.2);
+  border-color: #6f42c1;
+  box-shadow: 0 0 15px rgba(111, 66, 193, 0.15);
+}
+
+.faq-item.active {
+  border-color: #00f2fe;
+  background: rgba(0, 242, 254, 0.02);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.1);
 }
 
 .faq-question {
   width: 100%;
-  padding: 1.5rem;
+  padding: 1.4rem 1.8rem;
   background: none;
   border: none;
   color: white;
@@ -44,30 +153,74 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 600;
-  transition: color 0.3s;
+  font-weight: 700;
+  transition: all 0.3s ease;
 }
 
 .faq-question:hover {
-  color: var(--red);
+  color: #00f2fe;
+}
+
+.faq-item.active .faq-question {
+  color: #00f2fe;
 }
 
 .faq-icon {
-  font-size: 1.5rem;
-  color: var(--red);
+  font-size: 1.4rem;
+  color: #6f42c1;
+  transition: color 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+  color: #00f2fe;
 }
 
 .faq-answer {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0, 1, 0, 1);
-  padding: 0 1.5rem;
-  color: var(--text-muted);
-  line-height: 1.6;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .faq-item.active .faq-answer {
-  max-height: 200px;
-  padding-bottom: 1.5rem;
-  transition: max-height 0.4s ease-in-out;
+  max-height: 300px; 
+}
+
+.faq-answer-inner {
+  padding: 0 1.8rem 1.5rem 1.8rem;
+  color: #a5a6a7;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   4. ADAPTACIÓN RESPONSIVA (MÓVILES - MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .faq-grid {
+    flex-direction: column;  /* Se apila verticalmente en tablets y celulares */
+    gap: 3rem;
+  }
+
+  .faq-media-wrapper {
+    max-width: 100%;         /* Ocupa todo el ancho disponible en móvil */
+  }
+
+  .faq-content {
+    max-width: 100%;
+    text-align: center;      /* Centramos los títulos solo en pantallas pequeñas */
+  }
+
+  .faq-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .faq-question {
+    padding: 1.2rem 1.4rem;
+    font-size: 1.05rem;
+  }
+
+  .faq-answer-inner {
+    padding: 0 1.4rem 1.3rem 1.4rem;
+  }
 }

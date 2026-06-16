@@ -1,14 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router"
 import Landing from "./pages/Landing"
-import Register from "./pages/Register"
+import Register from "./pages/register/Register"
 import Dashboard from "./pages/Dashboard"
 import NotFound from "./pages/NotFound"
 import About from "./pages/about/About"
 import Services from "./pages/services/Services"
 import Contact from "./pages/contacts/Contacts"
-import Login from "./pages/Login"
+import Login from "./pages/login/Login"
 import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
+
 
 function App() {
     return (

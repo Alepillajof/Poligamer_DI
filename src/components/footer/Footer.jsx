@@ -6,22 +6,22 @@ export const Footer = () => {
     <footer className="footer">
       <div className="footer-container">
         
-        {/* Columna 1: Información de marca */}
-        <div className="footer-info">
+        {/* Columna 1: Información de marca (Entrada desde la izquierda) */}
+        <div className="footer-info" data-aos="fade-right" data-aos-delay="100">
           <h3>POLIGAMER</h3>
           <p>Tu plataforma de juegos preferida. Calidad, velocidad y diversión garantizada.</p>
         </div>
         
-        {/* Columna 2: Contacto */}
-        <div className="footer-contact">
+        {/* Columna 2: Contacto (Entrada desde abajo) */}
+        <div className="footer-contact" data-aos="fade-up" data-aos-delay="200">
           <h4>Contacto</h4>
           <p><FaMapMarkerAlt /> Escuela Politécnica Nacional, Quito, Ecuador</p>
           <p><FaEnvelope /> furyalred@gmail.com</p>
           <p><FaPhoneAlt /> +593 99 982 6289</p>
         </div>
 
-        {/* Columna 3: Redes Sociales */}
-        <div className="footer-social">
+        {/* Columna 3: Redes Sociales (Entrada desde la derecha) */}
+        <div className="footer-social" data-aos="fade-left" data-aos-delay="300">
           <h4>Sígueme</h4>
           <div className="social-icons">
             <a href="#" className="social-link"><FaFacebook /> Facebook</a>
@@ -31,7 +31,8 @@ export const Footer = () => {
         </div>
       </div>
       
-      <div className="footer-bottom">
+      {/* Barra Inferior: Revelado centrado sutil con retardo */}
+      <div className="footer-bottom" data-aos="zoom-in" data-aos-delay="400" data-aos-duration="800">
         <p>© 2026 POLIGAMER. Todos los derechos reservados.</p>
       </div>
     </footer>

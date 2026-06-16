@@ -1,0 +1,380 @@
+/* ==========================================================================
+   1. ESTRUCTURA BASE Y CONTENEDORES
+   ========================================================================== */
+.register-page {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at center, #0c1017 0%, #05070a 100%);
+    padding: 2rem;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.register-master-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    width: 100%;
+    max-width: 1100px;
+    min-height: 680px; /* Un poco más alto para los campos extra */
+    background: rgba(10, 12, 16, 0.9);
+    border: 1px solid rgba(31, 40, 51, 0.7);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+    position: relative;
+    border-radius: 0px !important; /* Esquinas afiladas intactas */
+}
+
+/* ==========================================================================
+   2. MARCA E INFRAESTRUCTURA (PANEL IZQUIERDO)
+   ========================================================================== */
+.register-branding-panel {
+    position: relative;
+    background: #090d16;
+    background-image: 
+        linear-gradient(rgba(111, 66, 193, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(111, 66, 193, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    border-right: 1px solid rgba(31, 40, 51, 0.5);
+    overflow: hidden;
+}
+
+.branding-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 30%, #05070a 90%);
+}
+
+.branding-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.branding-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    font-size: 2.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+.logo-icon-gaming {
+    color: #00f2fe;
+    filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.5));
+}
+
+.branding-logo span span {
+    background: linear-gradient(180deg, #00f2fe 0%, #6f42c1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.branding-quote {
+    color: #a5a6a7;
+    font-size: 0.85rem;
+    letter-spacing: 6px;
+    margin-top: 1rem;
+    font-weight: 700;
+}
+
+.branding-hud-specs {
+    position: absolute;
+    bottom: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+    font-size: 0.7rem;
+    color: #4f5b66;
+    font-family: monospace;
+    letter-spacing: 1px;
+    width: max-content;
+}
+
+.laser-scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #6f42c1, transparent);
+    opacity: 0.4;
+    animation: scanVertical 6s linear infinite;
+}
+
+@keyframes scanVertical {
+    0% { top: 0%; }
+    50% { top: 100%; }
+    100% { top: 0%; }
+}
+
+/* ==========================================================================
+   3. FORMULARIO DE CAPTURA DE DATOS (PANEL DERECHO)
+   ========================================================================== */
+.register-form-panel {
+    background: #0b0e14;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+}
+
+.form-header h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.form-header h2 span {
+    color: #00f2fe;
+}
+
+.form-header p {
+    color: #7a8c9e;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Inputs reactivos HUD */
+.input-hud-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.input-hud-group label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #a5a6a7;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-hud-icon {
+    position: absolute;
+    left: 1rem;
+    color: #4f5b66;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 0.9rem 1rem 0.9rem 2.8rem;
+    background: rgba(16, 22, 32, 0.6);
+    border: 1px solid #1f2833;
+    color: #ffffff;
+    font-size: 0.95rem;
+    outline: none;
+    border-radius: 0px !important;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus {
+    background: rgba(16, 22, 32, 0.9);
+    border-color: #00f2fe;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.1);
+}
+
+.input-wrapper input:focus ~ .input-hud-icon {
+    color: #00f2fe;
+}
+
+.input-hud-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #00f2fe;
+    transition: width 0.3s ease;
+}
+
+.input-wrapper input:focus ~ .input-hud-border {
+    width: 100%;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: #4f5b66;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.toggle-password-btn:hover {
+    color: #00f2fe;
+}
+
+/* ==========================================================================
+   4. CHECKBOX Y ENLACES DE REDIRECCIÓN
+   ========================================================================== */
+.form-utility-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+    margin-bottom: 1.8rem;
+    font-size: 0.85rem;
+}
+
+.custom-checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 1.8rem;
+    cursor: pointer;
+    color: #a5a6a7;
+    user-select: none;
+}
+
+.custom-checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background: rgba(16, 22, 32, 0.6);
+    border: 1px solid #1f2833;
+    border-radius: 0px !important;
+}
+
+.custom-checkbox-container:hover input ~ .checkmark {
+    border-color: #00f2fe;
+}
+
+.custom-checkbox-container input:checked ~ .checkmark {
+    background: #00f2fe;
+    border-color: #00f2fe;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox-container .checkmark:after {
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid #05070a;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* ==========================================================================
+   5. BOTÓN REGISTRO ACABADO NEÓN
+   ========================================================================== */
+.btn-register-submit {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, #6f42c1 0%, #00f2fe 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 0px !important;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(111, 66, 193, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-register-submit:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
+}
+
+.form-footer-redirect {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #7a8c9e;
+}
+
+.form-footer-redirect a {
+    color: #00f2fe;
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 0.3rem;
+    transition: color 0.3s ease;
+}
+
+.form-footer-redirect a:hover {
+    color: #6f42c1;
+}
+
+/* ==========================================================================
+   6. RESPONSIVIDAD (SOLO MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .register-master-grid {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+    }
+    
+    .register-branding-panel {
+        display: none;
+    }
+    
+    .register-form-panel {
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .register-page {
+        padding: 1rem;
+    }
+    
+    .form-header h2 {
+        font-size: 1.6rem;
+    }
+}
