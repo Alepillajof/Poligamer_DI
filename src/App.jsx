@@ -1,28 +1,32 @@
-import Header from './components/header/Header';
-import Main from './components/main/Main';
-import About from './components/about/About';
-import { Services } from './components/services/Services';
-import { Downloads } from './components/downloads/Downloads';
-import { FAQ } from './components/faq/FAQ';
-import Contacts from './components/contacts/Contacts';
-import { Footer } from './components/footer/Footer';
-import './App.css';
+import { BrowserRouter, Route, Routes } from "react-router"
+import Landing from "./pages/Landing"
+import Register from "./pages/Register"
+import Dashboard from "./pages/Dashboard"
+import NotFound from "./pages/NotFound"
+import About from "./pages/about/About"
+import Services from "./pages/services/Services"
+import Contact from "./pages/contacts/Contacts"
+import Login from "./pages/Login"
+import Header from "./components/header/Header"
+import Footer from "./components/footer/Footer"
 
 function App() {
-  return (
-    <div className="app-container">
-      <Header />
-      <main>
-        <Main />
-        <About />
-        <Services />
-        <Downloads />
-        <FAQ />
-        <Contacts />
-        <Footer />
-      </main>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <Header/>
+            <Routes>
+                <Route index element={<Landing />} />
+                <Route path="about" element={<About />} />
+                <Route path="service" element={<Services />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="register" element={<Register />} />
+                <Route path="login" element={<Login />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path='*' element={<NotFound />} />
+            </Routes>
+        <Footer/>
+        </BrowserRouter>
+    )
 }
 
-export default App;
+export default App

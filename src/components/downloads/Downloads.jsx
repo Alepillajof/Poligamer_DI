@@ -1,4 +1,3 @@
-
 import './Downloads.css';
 import { FaGooglePlay, FaWindows, FaApple } from 'react-icons/fa';
 

@@ -4,6 +4,7 @@
     import './About.css'
 
     export default function About() {
+    
     const ref = useRef(null)
     const inView = useInView(ref, { once: true })
 
