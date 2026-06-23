@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaLock, FaGamepad, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { authFirebase } from '../../firebase';
 import './Login.css';
 
 const Login = () => {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -18,108 +23,182 @@ const Login = () => {
         });
     }, []);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aquí irá la lógica de autenticación de tu tesis
-        console.log('Iniciando sesión con:', { email, password });
+
+        try {
+            const userCredential = await signInWithEmailAndPassword(
+                authFirebase,
+                email,
+                password
+            );
+
+            const user = userCredential.user;
+
+            console.log("Usuario autenticado:", user);
+
+            alert("Inicio de sesión exitoso");
+
+            navigate('/');
+
+        } catch (error) {
+            console.error(error);
+
+            switch (error.code) {
+                case 'auth/user-not-found':
+                    alert('No existe una cuenta con este correo');
+                    break;
+
+                case 'auth/wrong-password':
+                    alert('Contraseña incorrecta');
+                    break;
+
+                case 'auth/invalid-email':
+                    alert('Correo inválido');
+                    break;
+
+                case 'auth/invalid-credential':
+                    alert('Correo o contraseña incorrectos');
+                    break;
+
+                default:
+                    alert(error.message);
+            }
+        }
     };
 
     return (
         <div className="login-page">
             <div className="login-master-grid" data-aos="zoom-in">
-                
-                {/* Panel Izquierdo: Estética de Marca e Infraestructura */}
+
+                {/* Panel Izquierdo */}
                 <div className="login-branding-panel">
                     <div className="branding-overlay"></div>
-                    <div className="branding-content" data-aos="fade-up" data-aos-delay="300">
+
+                    <div
+                        className="branding-content"
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                    >
                         <div className="branding-logo">
                             <FaGamepad className="logo-icon-gaming" />
                             <span>POLI<span>GAMER</span></span>
                         </div>
+
                         <p className="branding-quote">
                             CONECTA. COMPITE. DOMINA.
                         </p>
+
                         <div className="branding-hud-specs">
                             <span>SYS.STATUS: ONLINE</span>
                             <span>NODE: EPN-QUITO</span>
                         </div>
                     </div>
-                    {/* Línea láser decorativa */}
+
                     <div className="laser-scanline"></div>
                 </div>
 
-                {/* Panel Derecho: Formulario de Acceso Seguro */}
-                <div className="login-form-panel" data-aos="fade-left" data-aos-delay="200">
+                {/* Panel Derecho */}
+                <div
+                    className="login-form-panel"
+                    data-aos="fade-left"
+                    data-aos-delay="200"
+                >
                     <div className="form-header">
-                        <h2>Iniciar <span>Sesión</span></h2>
-                        <p>Ingresa tus credenciales para acceder a la plataforma</p>
+                        <h2>
+                            Iniciar <span>Sesión</span>
+                        </h2>
+                        <p>
+                            Ingresa tus credenciales para acceder a la plataforma
+                        </p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="auth-form">
-                        
-                        {/* Input de Usuario / Email */}
+
+                        {/* Email */}
                         <div className="input-hud-group">
                             <label>Identificación de Usuario</label>
+
                             <div className="input-wrapper">
                                 <FaUser className="input-hud-icon" />
-                                <input 
-                                    type="email" 
-                                    placeholder="ejemplo@epn.edu.ec" 
+
+                                <input
+                                    type="email"
+                                    placeholder="ejemplo@epn.edu.ec"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    required 
+                                    required
                                 />
+
                                 <div className="input-hud-border"></div>
                             </div>
                         </div>
 
-                        {/* Input de Contraseña */}
+                        {/* Password */}
                         <div className="input-hud-group">
                             <label>Clave de Acceso</label>
+
                             <div className="input-wrapper">
                                 <FaLock className="input-hud-icon" />
-                                <input 
-                                    type={showPassword ? "text" : "password"} 
-                                    placeholder="••••••••••••" 
+
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="••••••••••••"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    required 
+                                    required
                                 />
-                                <button 
-                                    type="button" 
+
+                                <button
+                                    type="button"
                                     className="toggle-password-btn"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
+
                                 <div className="input-hud-border"></div>
                             </div>
                         </div>
 
-                        {/* Opciones extras: Recordar y Recuperar */}
+                        {/* Opciones */}
                         <div className="form-utility-row">
                             <label className="custom-checkbox-container">
                                 <input type="checkbox" />
                                 <span className="checkmark"></span>
                                 Mantener sesión activa
                             </label>
-                            <a href="#recuperar" className="forgot-password-link">¿Olvidaste tu clave?</a>
+
+                            <a
+                                href="#recuperar"
+                                className="forgot-password-link"
+                            >
+                                ¿Olvidaste tu clave?
+                            </a>
                         </div>
 
-                        {/* Botón de envío con efecto Framer Motion para el Click */}
-                        <motion.button 
+                        {/* Botón */}
+                        <motion.button
                             whileTap={{ scale: 0.97 }}
-                            type="submit" 
+                            type="submit"
                             className="btn-login-submit"
                         >
-                            <span className="btn-glitch-text">Autenticar Usuario</span>
+                            <span className="btn-glitch-text">
+                                Autenticar Usuario
+                            </span>
+
                             <div className="btn-laser-glow"></div>
                         </motion.button>
                     </form>
 
-                    {/* Footer del Formulario */}
+                    {/* Registro */}
                     <div className="form-footer-redirect">
-                        <p>¿Aún no tienes cuenta? <a href="#registro">Crear cuenta institucional</a></p>
+                        <p>
+                            ¿Aún no tienes cuenta?{' '}
+                            <a href="/register">
+                                Crear cuenta institucional
+                            </a>
+                        </p>
                     </div>
                 </div>
 

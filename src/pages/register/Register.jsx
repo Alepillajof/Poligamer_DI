@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaUser, FaLock, FaEnvelope, FaGamepad, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import './Register.css'; // Archivo de estilos dedicado
+import { authFirebase } from '../../firebase';
+import './Register.css';
 
 const Register = () => {
+    const navigate = useNavigate();
+
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,120 +25,191 @@ const Register = () => {
         });
     }, []);
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
+
         if (password !== confirmPassword) {
             alert("Las contraseñas no coinciden.");
             return;
         }
-        // Lógica de base de datos o API para tu tesis aquí
-        console.log('Registrando jugador:', { username, email, password });
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+                authFirebase,
+                email,
+                password
+            );
+
+            const user = userCredential.user;
+
+            console.log("Usuario registrado:", user);
+
+            alert("Registro exitoso");
+
+            setUsername('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+
+            navigate('/login');
+
+        } catch (error) {
+            console.error(error);
+
+            switch (error.code) {
+                case "auth/email-already-in-use":
+                    alert("Este correo ya está registrado");
+                    break;
+
+                case "auth/invalid-email":
+                    alert("Correo inválido");
+                    break;
+
+                case "auth/weak-password":
+                    alert("La contraseña debe tener al menos 6 caracteres");
+                    break;
+
+                default:
+                    alert(error.message);
+            }
+        }
     };
 
     return (
         <div className="register-page">
             <div className="register-master-grid" data-aos="zoom-in">
-                
-                {/* Panel Izquierdo: Estética Cyber / Terminal de Red */}
+
+                {/* Panel Izquierdo */}
                 <div className="register-branding-panel">
                     <div className="branding-overlay"></div>
-                    <div className="branding-content" data-aos="fade-up" data-aos-delay="300">
+
+                    <div
+                        className="branding-content"
+                        data-aos="fade-up"
+                        data-aos-delay="300"
+                    >
                         <div className="branding-logo">
                             <FaGamepad className="logo-icon-gaming" />
-                            <span>POLI<span>GAMER</span></span>
+                            <span>
+                                POLI<span>GAMER</span>
+                            </span>
                         </div>
+
                         <p className="branding-quote">
                             CREA TU AVATAR. UNE A LA ESCUADRA.
                         </p>
+
                         <div className="branding-hud-specs">
                             <span>SECURE_CORE: ACTIVE</span>
                             <span>DATABASE: LINKED</span>
                         </div>
                     </div>
+
                     <div className="laser-scanline"></div>
                 </div>
 
-                {/* Panel Derecho: Formulario HUD de Registro */}
-                <div className="register-form-panel" data-aos="fade-left" data-aos-delay="200">
+                {/* Panel Derecho */}
+                <div
+                    className="register-form-panel"
+                    data-aos="fade-left"
+                    data-aos-delay="200"
+                >
                     <div className="form-header">
-                        <h2>Crear <span>Cuenta</span></h2>
+                        <h2>
+                            Crear <span>Cuenta</span>
+                        </h2>
                         <p>Únete a la comunidad competitiva e institucional</p>
                     </div>
 
                     <form onSubmit={handleRegister} className="auth-form">
-                        
-                        {/* Input: Nombre de Usuario */}
+
+                        {/* Usuario */}
                         <div className="input-hud-group">
                             <label>Nombre de Usuario (Gamertag)</label>
+
                             <div className="input-wrapper">
                                 <FaUser className="input-hud-icon" />
-                                <input 
-                                    type="text" 
-                                    placeholder="Ej. FuryAlred" 
+
+                                <input
+                                    type="text"
+                                    placeholder="Ej. FuryAlred"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
-                                    required 
+                                    required
                                 />
+
                                 <div className="input-hud-border"></div>
                             </div>
                         </div>
 
-                        {/* Input: Correo Electrónico */}
+                        {/* Correo */}
                         <div className="input-hud-group">
                             <label>Correo Electrónico Institucional</label>
+
                             <div className="input-wrapper">
                                 <FaEnvelope className="input-hud-icon" />
-                                <input 
-                                    type="email" 
-                                    placeholder="tu.apellido@epn.edu.ec" 
+
+                                <input
+                                    type="email"
+                                    placeholder="tu.apellido@epn.edu.ec"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    required 
+                                    required
                                 />
+
                                 <div className="input-hud-border"></div>
                             </div>
                         </div>
 
-                        {/* Input: Contraseña */}
+                        {/* Contraseña */}
                         <div className="input-hud-group">
                             <label>Establecer Contraseña</label>
+
                             <div className="input-wrapper">
                                 <FaLock className="input-hud-icon" />
-                                <input 
-                                    type={showPassword ? "text" : "password"} 
-                                    placeholder="Mínimo 8 caracteres" 
+
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Mínimo 6 caracteres"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    required 
+                                    required
                                 />
-                                <button 
-                                    type="button" 
+
+                                <button
+                                    type="button"
                                     className="toggle-password-btn"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <FaEyeSlash /> : <FaEye />}
                                 </button>
+
                                 <div className="input-hud-border"></div>
                             </div>
                         </div>
 
-                        {/* Input: Confirmar Contraseña */}
+                        {/* Confirmar Contraseña */}
                         <div className="input-hud-group">
                             <label>Confirmar Contraseña</label>
+
                             <div className="input-wrapper">
                                 <FaLock className="input-hud-icon" />
-                                <input 
-                                    type={showPassword ? "text" : "password"} 
-                                    placeholder="Repite tu contraseña" 
+
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    placeholder="Repite tu contraseña"
                                     value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required 
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
+                                    required
                                 />
+
                                 <div className="input-hud-border"></div>
                             </div>
                         </div>
 
-                        {/* Términos y Condiciones */}
+                        {/* Términos */}
                         <div className="form-utility-row">
                             <label className="custom-checkbox-container">
                                 <input type="checkbox" required />
@@ -142,20 +218,26 @@ const Register = () => {
                             </label>
                         </div>
 
-                        {/* Botón de Registro */}
-                        <motion.button 
+                        {/* Botón */}
+                        <motion.button
                             whileTap={{ scale: 0.97 }}
-                            type="submit" 
+                            type="submit"
                             className="btn-register-submit"
                         >
-                            <span className="btn-glitch-text">Inicializar Perfil</span>
+                            <span className="btn-glitch-text">
+                                Inicializar Perfil
+                            </span>
+
                             <div className="btn-laser-glow"></div>
                         </motion.button>
                     </form>
 
-                    {/* Redirección a Login */}
+                    {/* Login */}
                     <div className="form-footer-redirect">
-                        <p>¿Ya eres miembro? <a href="#login">Iniciar Sesión</a></p>
+                        <p>
+                            ¿Ya eres miembro?{" "}
+                            <a href="/login">Iniciar Sesión</a>
+                        </p>
                     </div>
                 </div>
 
